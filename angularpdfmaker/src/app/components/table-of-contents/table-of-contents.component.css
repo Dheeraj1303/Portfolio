@@ -1,0 +1,17 @@
+.toc-container {
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}

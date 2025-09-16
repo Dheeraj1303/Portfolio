@@ -1,0 +1,13 @@
+.issue-summary {
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 5px 0;
+}
