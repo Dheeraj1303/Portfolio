@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dheeraj Kamble | Golang Developer</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <style>
+        /* --- 
+           1. GLOBAL STYLES & THEME 
+        --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #cccccc;
+            --primary-color: #00ff41; /* Neon Green */
+            --secondary-color: #333333;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-mono);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; border-bottom: 1px solid var(--secondary-color); padding-bottom: 10px; }
+        h3 { font-size: 1.2rem; color: #ffffff; }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            text-shadow: 0 0 10px var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        /* --- 
+           2. NAVIGATION 
+        --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+
+        /* --- 
+           3. HERO SECTION (with 3D Canvas) 
+        --- */
+        #hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+
+        /* Style for the typing cursor effect */
+        .hero-content p .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.5rem;
+            background: var(--primary-color);
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* --- 
+           4. CONTENT SECTIONS (About, Experience, etc.) 
+        --- */
+        section {
+            padding: 6rem 0;
+        }
+
+        /* This class will be added by GSAP for animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        /* --- ABOUT --- */
+        #about .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-interests ul {
+            padding-left: 1.5rem;
+        }
+        
+        .about-interests li {
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Custom bullet point for terminal look */
+        .about-interests li::before {
+            content: '>';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        /* --- EXPERIENCE --- */
+        .job {
+            background: #111111;
+            border: 1px solid var(--secondary-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+        }
+        
+        .job-header span {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .job ul {
+            padding-left: 1.5rem;
+        }
+
+        .job li {
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+
+        .job li::before {
+            content: '»';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        /* --- SKILLS --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .skill-item {
+            font-size: 1rem;
+        }
+
+        .skill-item i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-item:hover i {
+            color: #ffffff;
+            transform: scale(1.1);
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .skill-item p {
+            margin-top: 0.5rem;
+            color: #ffffff;
+        }
+
+        /* --- CONTACT --- */
+        #contact {
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-links a {
+            font-size: 1.2rem;
+            border: 1px solid var(--secondary-color);
+            padding: 0.5rem 1rem;
+        }
+
+        .contact-links a:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            border-color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            .navbar .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            #about .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .job-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 1.5rem;
+            }
+            
+            .skill-item i {
+                font-size: 3rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#hero" class="navbar-brand">./DHEERAJ_KAMBLE</a>
+            <ul class="nav-links">
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#experience">EXPERIENCE</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div id="hero-canvas"></div>
+        <div class="hero-content">
+            <h1>Dheeraj Kamble</h1>
+            <p><span id="typing-effect"></span><span class="cursor"></span></p>
+        </div>
+    </section>
+
+    <section id="about" class="container reveal">
+        <h2>01. ABOUT ME</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    Golang Developer with a passion for cybersecurity and building secure, scalable backend systems. My professional experience at SecureLayer7 involved contributing to a core API Scanner Engine, developing reporting automation, and integrating security tools into CI/CD pipelines.
+                </p>
+                <p>
+                    I thrive on solving complex problems and am a dedicated self-learner, always exploring open-source tools and new technologies to enhance my skills.
+                </p>
+                   <p>You can often find me strategizing my next move, whether on a snooker table or a chessboard, or enjoying a friendly match of football with friends.
+                </p>
+            </div>
+            <div class="about-interests">
+                <h3>AREAS OF INTEREST</h3>
+                <ul>
+                    <li>Cyber Security</li>
+                    <li>Manual Penetration Testing</li>
+                    <li>Open-Source Tools</li>
+                    <li>Backend Systems Architecture</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="container reveal">
+        <h2>02. EXPERIENCE</h2>
+        
+        <div class="job reveal">
+            <div class="job-header">
+                <h3>Golang Developer - SecureLayer7</h3>
+                <span>11/2023 – Present</span>
+            </div>
+            <ul>
+                <li>Contributed extensively to the core API Scanner Engine, implementing modules for benchmarking, parsing, and scan logic.</li>
+                <li>Developed advanced reporting automation features generating PDF, HTML, and Excel reports.</li>
+                <li>Integrated Jira with the on-premises solution to automate ticket creation and link scan results with workflow pipelines.</li>
+                <li>Worked on CI/CD pipeline integrations with Jenkins, GitHub Actions, GitLab, and Azure DevOps.</li>
+                <li>Implemented SMTP email alerts and Scan Logs Export for audit-friendly recordkeeping.</li>
+                <li>Developed support for Single Endpoint Scanning to allow targeted API testing.</li>
+                <li>Integrated with over 100 RESTful APIs during product revamp.</li>
+                <li>Implemented Burp Suite API Logging to incorporate external proxy data into scan workflows.</li>
+                <li>Optimized database queries and backend logic to improve performance.</li>
+            </ul>
+        </div>
+
+        <div class="job reveal">
+            <div class="job-header">
+                <h3>Web Development Intern - Elite Softwares</h3>
+                <span>12/2022 – 01/2023</span>
+            </div>
+            <ul>
+                <li>Learned and applied Python Django Framework for web development projects.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills" class="container reveal">
+        <h2>03. SKILLS</h2>
+        <div class="skills-grid">
+            <div class="skill-item reveal">
+                <i class="devicon-go-original-wordmark"></i>
+                <p>Golang</p>
+            </div>
+            <div class="skill-item reveal">
+                <i class="devicon-python-plain"></i>
+                <p>Python</p>
+            </div>
+            <div class="skill-item reveal">
+                <i class="devicon-mysql-plain"></i>
+                <p>MySQL</p>
+            </div>
+            <div class="skill-item reveal">
+                <i class="devicon-mongodb-plain-wordmark"></i>
+                <p>MongoDB</p>
+            </div>
+            <div class="skill-item reveal">
+                <i class="devicon-cassan-plain"></i>
+                <p>Cassandra</p>
+            </div>
+            <div class="skill-item reveal">
+                <i class="devicon-angularjs-plain"></i>
+                <p>Angular JS</p>
+            </div>
+            <div class="skill-item reveal">
+                <i class="devicon-git-plain"></i>
+                <p>Git</p>
+            </div>
+            <div class="skill-item reveal">
+                <i class="devicon-github-original"></i>
+                <p>GitHub</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container reveal">
+        <h2>04. GET IN TOUCH</h2>
+        <p>I'm currently seeking new opportunities. Feel free to reach out.</p>
+        <div class="contact-links">
+            <a href="mailto:dhirajk1303@gmail.com">Email</a>
+            <a href="https://linkedin.com/in/dkamble/" target="_blank">LinkedIn</a>
+            <!-- Initially shows 'Phone'. On first click JS will reveal the number and set the tel: link -->
+            <a id="phone-link" href="#" data-phone="+91 9604346983">Phone</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Dheeraj Kamble | Designed & Built 2025</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            /* --- 
+               1. TYPING EFFECT (HERO) 
+            --- */
+            const typingText = "Golang Developer - Cybersecurity Enthusiast";
+            const typingElement = document.getElementById('typing-effect');
+            let index = 0;
+
+            function type() {
+                if (index < typingText.length) {
+                    typingElement.textContent += typingText.charAt(index);
+                    index++;
+                    setTimeout(type, 100); // Adjust typing speed here
+                }
+            }
+            type();
+
+            // --- PHONE: click-to-reveal behavior ---
+            const phoneLink = document.getElementById('phone-link');
+            if (phoneLink) {
+                phoneLink.addEventListener('click', function (e) {
+                    // If number already revealed, allow default behavior (dial)
+                    if (this.dataset.revealed) return;
+
+                    // Prevent default navigation on first click so we can reveal the number
+                    e.preventDefault();
+
+                    const phone = this.dataset.phone || '';
+                    // Format display by inserting space after country code (e.g. +91 9604346983)
+                    const display = phone.replace(/^(\+\d{1,3})(\d+)$/, '$1 $2');
+
+                    this.textContent = display;
+                    this.href = 'tel:' + phone.replace(/\s+/g, '');
+                    this.dataset.revealed = '1';
+                });
+            }
+
+
+            /* --- 
+               2. DYNAMIC SCROLL ANIMATIONS (GSAP) 
+            --- */
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Select all elements with the class 'reveal'
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            revealElements.forEach((el) => {
+                gsap.to(el, {
+                    autoAlpha: 1, // Fades in (opacity)
+                    y: 0, // Moves to original position (from translateY(50px))
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%', // When the top of the element is 85% from the top of the viewport
+                        toggleActions: 'play none none none',
+                        once: true // Animation only plays once
+                    }
+                });
+            });
+
+
+            /* --- 
+               3. 3D PARTICLE HERO (THREE.js) 
+            --- */
+            let scene, camera, renderer, particles, geometry;
+            let mouseX = 0, mouseY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            function init3D() {
+                const container = document.getElementById('hero-canvas');
+                
+                // 1. Scene
+                scene = new THREE.Scene();
+
+                // 2. Camera
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+                camera.position.z = 1000;
+
+                // 3. Geometry (the particles)
+                geometry = new THREE.BufferGeometry();
+                const vertices = [];
+                const particleCount = 5000;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const x = Math.random() * 2000 - 1000;
+                    const y = Math.random() * 2000 - 1000;
+                    const z = Math.random() * 2000 - 1000;
+                    vertices.push(x, y, z);
+                }
+
+                geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+                // 4. Material
+                const material = new THREE.PointsMaterial({
+                    color: 0x00ff41, // Neon green
+                    size: 1.5,
+                    transparent: true,
+                    opacity: 0.7
+                });
+
+                particles = new THREE.Points(geometry, material);
+                scene.add(particles);
+
+                // 5. Renderer
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setClearColor(0x000000, 0); // Transparent background
+                container.appendChild(renderer.domElement);
+
+                // Event Listeners
+                document.addEventListener('mousemove', onDocumentMouseMove, false);
+                window.addEventListener('resize', onWindowResize, false);
+            }
+
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            function onDocumentMouseMove(event) {
+                mouseX = (event.clientX - windowHalfX) / 2;
+                mouseY = (event.clientY - windowHalfY) / 2;
+            }
+
+            function animate3D() {
+                requestAnimationFrame(animate3D);
+                render3D();
+            }
+
+            function render3D() {
+                const time = Date.now() * 0.00005;
+
+                // Animate camera rotation based on mouse movement
+                camera.position.x += (mouseX - camera.position.x) * 0.03;
+                camera.position.y += (-mouseY - camera.position.y) * 0.03;
+                camera.lookAt(scene.position);
+
+                // Animate particles
+                particles.rotation.x = time * 0.2;
+                particles.rotation.y = time * 0.4;
+                
+                renderer.render(scene, camera);
+            }
+
+            // Start the 3D animation
+            init3D();
+            animate3D();
+        });
+    </script>
+
+</body>
+</html>
