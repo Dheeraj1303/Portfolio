@@ -485,18 +485,25 @@
             /* --- 
                1. TYPING EFFECT (HERO) 
             --- */
-            const typingText = "Golang Developer - Cybersecurity Enthusiast";
+             const typingText2 = "Golang Developer / Backend Developer\n( Cyber Security Exp. )";
             const typingElement = document.getElementById('typing-effect');
             let index = 0;
+            // below this i want Cyber Security Exp.
+            const typingElement2 = document.getElementById('typing-effect');
+            let index2  = 0;
 
-            function type() {
-                if (index < typingText.length) {
-                    typingElement.textContent += typingText.charAt(index);
-                    index++;
-                    setTimeout(type, 100); // Adjust typing speed here
+            function type2() {
+                if (index2 < typingText2.length) {
+                    if (typingText2.charAt(index2) === '\n') {
+                        typingElement2.innerHTML += '<br>';
+                    } else {
+                        typingElement2.innerHTML += typingText2.charAt(index2);
+                    }
+                    index2++;
+                    setTimeout(type2, 100);
                 }
             }
-            type();
+            type2();
 
             // --- PHONE: click-to-reveal behavior ---
             const phoneLink = document.getElementById('phone-link');
